@@ -3,14 +3,9 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta http-equiv="X-Frame-Options" content="DENY" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; img-src 'self' data:;" />
-  <meta name="referrer" content="no-referrer" />
   <title>Cyber Escape Room — Advanced Cyber Labs</title>
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;700&display=swap" rel="stylesheet">
   <style>
-    /* admin123 */
     :root{
       --bg:#071018; --panel:#0d161a; --text:#cfead6; --muted:#7b8a88;
       --accent:#4ef08a; --accent-2:#66b0ff; --error:#ff6b6b; --radius:12px;
@@ -41,120 +36,19 @@
     .bad{color:var(--error);font-weight:700}
     .meta{color:var(--muted);font-size:13px}
     .center{text-align:center;padding:30px}
-    .landing-page {
+    .timer{
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(135deg, var(--bg) 0%, #030508 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 1000;
-    }
-    .landing-content {
-      text-align: center;
-      max-width: 600px;
-      padding: 40px;
-      background: rgba(255,255,255,0.03);
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.05);
-      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-    }
-    .landing-logo {
-      font-size: 40px;
-      margin-bottom: 20px;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      -webkit-text-fill-color: transparent;
-      font-weight: bold;
-    }
-    .landing-description {
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 30px;
-      font-size: 16px;
-    }
-    .name-form {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-      align-items: center;
-    }
-    .name-input {
-      width: 100%;
-      max-width: 300px;
+      right: 20px;
+      top: 20px;
       background: rgba(255,255,255,0.05);
+      padding: 12px 20px;
+      border-radius: var(--radius);
       border: 1px solid rgba(255,255,255,0.1);
-      padding: 15px 20px;
-      border-radius: var(--radius);
-      color: var(--text);
-      font-size: 16px;
-      transition: all 0.3s ease;
-    }
-    .name-input:focus {
-      border-color: var(--accent);
-      outline: none;
-      box-shadow: 0 0 0 3px rgba(78,240,138,0.1);
-    }
-    .start-button {
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      color: var(--bg);
-      border: none;
-      padding: 15px 40px;
-      border-radius: var(--radius);
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    .start-button:disabled {
-      opacity: 0.5;
-      cursor: not-allowed;
-    }
-    .start-button:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(78,240,138,0.2);
-    }
-    .leaderboard {
-      margin-top: 20px;
-      background: rgba(255,255,255,0.05);
-      border-radius: var(--radius);
-      padding: 20px;
-    }
-    .leaderboard table {
-      width: 100%;
-      border-collapse: collapse;
-      color: var(--text);
-      font-size: 14px;
-    }
-    .leaderboard th {
-      text-align: left;
-      padding: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.1);
       color: var(--accent);
-    }
-    .leaderboard td {
-      padding: 10px;
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-    .leaderboard tr.current-player {
-      background: rgba(78,240,138,0.1);
-    }
-    .leaderboard tr:hover {
-      background: rgba(255,255,255,0.02);
-    }
-    .name-input {
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.1);
-      padding: 10px 15px;
-      border-radius: var(--radius);
-      color: var(--text);
-      margin: 10px 0;
-      width: 100%;
-      max-width: 300px;
+      font-size: 18px;
+      font-weight: bold;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      display: none;
     }
     .back-button {
       position: fixed;
@@ -177,58 +71,10 @@
       background: rgba(255,255,255,0.1);
       transform: translateY(-1px);
     }
-    .back-button svg {
-      width: 16px;
-      height: 16px;
-      fill: currentColor;
-    }
-    .timer{
-      position: fixed;
-      right: 20px;
-      top: 20px;
-      background: rgba(255,255,255,0.05);
-      padding: 12px 20px;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255,255,255,0.1);
-      color: var(--accent);
-      font-size: 18px;
-      font-weight: bold;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-      display: none;
-    }
   </style>
-  <!-- Simple Analytics - Privacy-Friendly -->
-  <script async defer src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-  <noscript><img src="https://queue.simpleanalyticscdn.com/noscript.gif" alt="" referrerpolicy="no-referrer-when-downgrade" /></noscript>
 </head>
 <body>
-<div id="landing" class="landing-page">
-  <div class="landing-content">
-    <div class="landing-logo">🔐 Cyber Escape</div>
-    <div class="landing-description">
-      Welcome to the Advanced Cyber Labs Escape Room! Test your cybersecurity knowledge with 30 challenging puzzles. 
-      Are you ready to hack, decode, and solve your way through?
-    </div>
-    <form class="name-form" id="nameForm">
-      <input type="text" 
-        class="name-input" 
-        id="landingNameInput" 
-        placeholder="Enter your name to begin"
-        required
-        minlength="2"
-        maxlength="20"
-        pattern="[A-Za-z0-9 ]+"
-        title="Letters, numbers and spaces only"
-      >
-      <button type="submit" class="start-button" disabled>Begin Challenge</button>
-    </form>
-  </div>
-</div>
-
-<div id="back-button" class="back-button">
-  <svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
-  Back
-</div>
+<div id="back-button" class="back-button">← Back</div>
 <div id="timer" class="timer">00:00:00</div>
 <div class="terminal">
   <header><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><h1>Cyber Escape Room — Advanced Cyber Labs</h1></header>
@@ -237,94 +83,50 @@
 
 <script>
 (function(){
-const questions = [
-{q:"You found a plaintext password in this page's source. What is it?",a:null,story:"Start simple — find the comment left by a lazy admin."},
-{q:"Capture a TCP handshake in Wireshark. What is the first flag set in SYN packets?",a:null,story:"Students must recall TCP’s initial flag used to start communication."},
-{q:"During a scan, Nmap reports '22/tcp open'. Which service typically runs here?",a:null,story:"Identify default services from port numbers."},
-{q:"BurpSuite intercepted request shows parameter: user=admin' OR 1=1 --. Which vulnerability is tested?",a:null,story:"Recognize common payload structures."},
-{q:"Which command shows only open ports in Nmap output?",a:null,story:"Forces use of command-line filtering knowledge."},
-{q:"Wireshark capture shows UDP packets on port 53. What protocol is this?",a:null,story:"Protocol identification from port number."},
-{q:"In BurpSuite, where would you modify intercepted parameters?",a:null,story:"GUI-based recall under practical context."},
-{q:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99 — identify algorithm.",a:null,story:"Classic password hash recognition."},
-{q:"Decode base64 string: UGFzc3dvcmQxMjMh",a:null,story:"Encourages manual decoding or online tool use."},
-{q:"Encrypt 'HELLO' using Caesar cipher with shift 3.",a:null,story:"Hands-on substitution cipher."},
-{q:"Wireshark shows packet marked [FIN, ACK]. What does this mean?",a:null,story:"Understanding of TCP flags."},
-{q:"A server sends 'HTTP/1.1 404 Not Found'. What layer protocol is HTTP?",a:null,story:"OSI model identification."},
-{q:"Steganography challenge: hidden message inside an image header reads 'key=stegrocks'. What is the key?",a:null,story:"Students must extract metadata using tools."},
-{q:"You discover encoded credentials in a config file: dXNlcj1yb290O3Bhc3M9c3VwZXI=. Decode username.",a:null,story:"Base64 practical extraction."},
-{q:"Find the default MySQL port number.",a:null,story:"Port/service association practice."},
-{q:"In Wireshark, apply filter to show only HTTP packets.",a:null,story:"Using display filters correctly."},
-{q:"Nmap aggressive scan syntax including OS detection?",a:null,story:"Testing scan option understanding."},
-{q:"You intercepted cookie: session=eyJ1c2VyIjoiYWRtaW4ifQ==. Decode the username.",a:null,story:"Base64 session decode task."},
-{q:"SHA256 hash length (in hex characters)?",a:null,story:"Recall fixed hash output sizes."},
-{q:"Find plaintext password if MD5 hash matches '098f6bcd4621d373cade4e832627b4f6'.",a:null,story:"Reverse lookup via cracking or reasoning."},
-{q:"BurpSuite Repeater lets you resend modified requests. True or False?",a:null,story:"Functional concept of Burp Repeater."},
-{q:"Which command in Linux checks open network connections and listening ports?",a:null,story:"System command recall."},
-{q:"In SQL, which clause restricts output to certain rows?",a:null,story:"Basic query comprehension."},
-{q:"During capture, you see many TCP retransmissions. What network issue could cause this?",a:null,story:"Diagnosis reasoning."},
-{q:"Find hidden text in image using 'strings' command. What type of technique is this?",a:null,story:"Concept classification."},
-{q:"Ciphertext 'gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt' — which cipher is used?",a:null,story:"Pattern recognition in monoalphabetic ciphers."},
-{q:"Command injection payload to list files on Linux?",a:null,story:"Understand shell command chaining."},
-{q:"Identify the three-way handshake order (write in short form).",a:null,story:"TCP connection initiation recall."},
-{q:"SQL injection defense technique (short phrase).",a:null,story:"Security mitigation knowledge."},
-{q:"Final Challenge: Which tool combines network sniffing, analysis, and protocol dissection?",a:null,story:"Synthesis — identify the ultimate packet tool."}
+const answers = [
+  "admin123", "SYN", "SSH", "SQL injection", "nmap -oG - | grep open",
+  "DNS", "Proxy intercept tab", "MD5", "Password123!", "KHOOR",
+  "Connection termination", "Application", "stegrocks", "root", "3306",
+  "http", "nmap -A <target>", "admin", "64", "test", "True",
+  "netstat -tuln", "WHERE", "packet loss", "steganography", "Atbash",
+  "; ls", "SYN, SYN-ACK, ACK", "parameterized queries", "Wireshark"
 ];
 
-async function loadAnswersAndStart() {
-  try {
-    // Load answers directly without token
-    // Answers are now embedded and obfuscated
-    const answers = [
-      btoa("admin123"),
-      btoa("syn"),
-      btoa("ssh"),
-      btoa("sql injection"),
-      btoa("nmap -open"),
-      btoa("dns"),
-      btoa("proxy"),
-      btoa("md5"),
-      btoa("Password123!"),
-      btoa("KHOOR"),
-      btoa("connection termination"),
-      btoa("application"),
-      btoa("stegrocks"),
-      btoa("root"),
-      btoa("3306"),
-      btoa("http"),
-      btoa("-A"),
-      btoa("admin"),
-      btoa("64"),
-      btoa("test"),
-      btoa("true"),
-      btoa("netstat"),
-      btoa("where"),
-      btoa("packet loss"),
-      btoa("forensics"),
-      btoa("vigenere"),
-      btoa(";ls"),
-      btoa("syn-synack-ack"),
-      btoa("prepared statements"),
-      btoa("wireshark")
-    ];
-    
-    if (!answersResp.ok) {
-      throw new Error('Could not load answers file');
-    }
+const questions = [
+{q:"You found a plaintext password in this page's source. What is it?",story:"Start simple — find the comment left by a lazy admin."},
+{q:"Capture a TCP handshake in Wireshark. What is the first flag set in SYN packets?",story:"Students must recall TCP's initial flag used to start communication."},
+{q:"During a scan, Nmap reports '22/tcp open'. Which service typically runs here?",story:"Identify default services from port numbers."},
+{q:"BurpSuite intercepted request shows parameter: user=admin' OR 1=1 --. Which vulnerability is tested?",story:"Recognize common payload structures."},
+{q:"Which command shows only open ports in Nmap output?",story:"Forces use of command-line filtering knowledge."},
+{q:"Wireshark capture shows UDP packets on port 53. What protocol is this?",story:"Protocol identification from port number."},
+{q:"In BurpSuite, where would you modify intercepted parameters?",story:"GUI-based recall under practical context."},
+{q:"Hash: 5f4dcc3b5aa765d61d8327deb882cf99 — identify algorithm.",story:"Classic password hash recognition."},
+{q:"Decode base64 string: UGFzc3dvcmQxMjMh",story:"Encourages manual decoding or online tool use."},
+{q:"Encrypt 'HELLO' using Caesar cipher with shift 3.",story:"Hands-on substitution cipher."},
+{q:"Wireshark shows packet marked [FIN, ACK]. What does this mean?",story:"Understanding of TCP flags."},
+{q:"A server sends 'HTTP/1.1 404 Not Found'. What layer protocol is HTTP?",story:"OSI model identification."},
+{q:"Steganography challenge: hidden message inside an image header reads 'key=stegrocks'. What is the key?",story:"Students must extract metadata using tools."},
+{q:"You discover encoded credentials in a config file: dXNlcj1yb290O3Bhc3M9c3VwZXI=. Decode username.",story:"Base64 practical extraction."},
+{q:"Find the default MySQL port number.",story:"Port/service association practice."},
+{q:"In Wireshark, apply filter to show only HTTP packets.",story:"Using display filters correctly."},
+{q:"Nmap aggressive scan syntax including OS detection?",story:"Testing scan option understanding."},
+{q:"You intercepted cookie: session=eyJ1c2VyIjoiYWRtaW4ifQ==. Decode the username.",story:"Base64 session decode task."},
+{q:"SHA256 hash length (in hex characters)?",story:"Recall fixed hash output sizes."},
+{q:"Find plaintext password if MD5 hash matches '098f6bcd4621d373cade4e832627b4f6'.",story:"Reverse lookup via cracking or reasoning."},
+{q:"BurpSuite Repeater lets you resend modified requests. True or False?",story:"Functional concept of Burp Repeater."},
+{q:"Which command in Linux checks open network connections and listening ports?",story:"System command recall."},
+{q:"In SQL, which clause restricts output to certain rows?",story:"Basic query comprehension."},
+{q:"During capture, you see many TCP retransmissions. What network issue could cause this?",story:"Diagnosis reasoning."},
+{q:"Find hidden text in image using 'strings' command. What type of technique is this?",story:"Concept classification."},
+{q:"Ciphertext 'gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt' — which cipher is used?",story:"Pattern recognition in monoalphabetic ciphers."},
+{q:"Command injection payload to list files on Linux?",story:"Understand shell command chaining."},
+{q:"Identify the three-way handshake order (write in short form).",story:"TCP connection initiation recall."},
+{q:"SQL injection defense technique (short phrase).",story:"Security mitigation knowledge."},
+{q:"Final Challenge: Which tool combines network sniffing, analysis, and protocol dissection?",story:"Synthesis — identify the ultimate packet tool."}
+];
 
-    const data = await answersResp.json();
-    // Assign answers to questions (expecting an array in data.answers)
-    if (data.answers && Array.isArray(data.answers)) {
-      questions.forEach((q, i) => q.a = data.answers[i]);
-      // Start the game
-      renderWelcome();
-    } else {
-      throw new Error('Invalid answers format');
-    }
-  } catch (err) {
-    console.error('Failed to load game:', err);
-    app.innerHTML = `<div class="center bad">Error: ${err.message}</div>`;
-  }
-}
+// Assign answers to questions
+questions.forEach((q, i) => q.a = answers[i]);
 
 const app = document.getElementById("app");
 const timerElement = document.getElementById("timer");
@@ -336,102 +138,15 @@ let timerInterval = null;
 // Back button functionality
 backButton.addEventListener('click', () => {
   if (idx > 0) {
-    // Go to previous question
     idx--;
     renderQ();
   } else if (idx === 0) {
-    // Go back to welcome screen
     stopTimer();
     timerElement.style.display = 'none';
     backButton.style.display = 'none';
     renderWelcome();
   }
 });
-let playerName = '';
-
-// Leaderboard functions
-// Save and manage user data
-function saveScore(timeInSeconds, timeFormatted) {
-  const scores = JSON.parse(localStorage.getItem('cyberEscapeScores') || '[]');
-  scores.push({
-    name: playerName,
-    time: timeInSeconds,
-    timeFormatted: timeFormatted,
-    date: new Date().toISOString()
-  });
-  scores.sort((a, b) => a.time - b.time); // Sort by time ascending
-  localStorage.setItem('cyberEscapeScores', JSON.stringify(scores));
-}
-
-// Export user data as JSON file
-function exportUserData() {
-  const userData = {
-    playerName: localStorage.getItem('lastPlayerName'),
-    scores: JSON.parse(localStorage.getItem('cyberEscapeScores') || '[]'),
-    exportDate: new Date().toISOString()
-  };
-  
-  const blob = new Blob([JSON.stringify(userData, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `cyber-escape-data-${new Date().toISOString().split('T')[0]}.json`;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
-
-// Import user data from JSON file
-function importUserData(file) {
-  const reader = new FileReader();
-  reader.onload = function(e) {
-    try {
-      const data = JSON.parse(e.target.result);
-      if (data.playerName) {
-        localStorage.setItem('lastPlayerName', data.playerName);
-      }
-      if (data.scores && Array.isArray(data.scores)) {
-        localStorage.setItem('cyberEscapeScores', JSON.stringify(data.scores));
-      }
-      alert('Data imported successfully!');
-      location.reload(); // Refresh to show imported data
-    } catch (err) {
-      alert('Error importing data. Please check the file format.');
-    }
-  };
-  reader.readAsText(file);
-}
-
-function getLeaderboard() {
-  const scores = JSON.parse(localStorage.getItem('cyberEscapeScores') || '[]');
-  return scores.sort((a, b) => a.time - b.time);
-}
-
-function formatLeaderboard(scores) {
-  if (scores.length === 0) return '<p>No completions yet. Be the first!</p>';
-  
-  return `
-    <div class="leaderboard">
-      <table>
-        <tr>
-          <th>Rank</th>
-          <th>Name</th>
-          <th>Time</th>
-          <th>Date</th>
-        </tr>
-        ${scores.map((score, index) => `
-          <tr class="${score.name === playerName ? 'current-player' : ''}">
-            <td>${index + 1}</td>
-            <td>${score.name}</td>
-            <td>${score.timeFormatted}</td>
-            <td>${new Date(score.date).toLocaleDateString()}</td>
-          </tr>
-        `).join('')}
-      </table>
-    </div>
-  `;
-}
 
 function updateTimer() {
   if (!startTime) return;
@@ -456,152 +171,73 @@ function stopTimer() {
   }
 }
 
-// Handle landing page
-const landing = document.getElementById('landing');
-const nameForm = document.getElementById('nameForm');
-const landingNameInput = document.getElementById('landingNameInput');
-const startButton = nameForm.querySelector('button');
-
-// Restore previous name if exists
-landingNameInput.value = localStorage.getItem('lastPlayerName') || '';
-startButton.disabled = !landingNameInput.value.trim();
-
-landingNameInput.addEventListener('input', () => {
-  startButton.disabled = !landingNameInput.value.trim();
-});
-
-nameForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  playerName = landingNameInput.value.trim();
-  localStorage.setItem('lastPlayerName', playerName);
-  landing.style.opacity = '0';
-  setTimeout(() => {
-    landing.style.display = 'none';
-    renderWelcome();
-  }, 500);
-});
-
 function renderWelcome(){
-  backButton.style.display = 'none'; // Hide back button on welcome screen
-  app.innerHTML=`
-    <div class="welcome">
-      <h2>Welcome, ${playerName}!</h2>
-      <p>30 escalating cybersecurity puzzles await you. Some answers hide in source, others need decoding, scanning, or reasoning.</p>
-      <button>Start Lab</button>
-      
-      <div class="leaderboard">
-        <h3 style="color: var(--accent-2); margin-bottom: 15px;">🏆 Top Performers</h3>
-        ${formatLeaderboard(getLeaderboard().slice(0, 5))}
-      </div>
-      
-      <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.03); border-radius: var(--radius);">
-        <h4 style="color: var(--accent-2); margin: 0 0 10px 0;">💾 Your Data</h4>
-        <div style="display: flex; gap: 10px; justify-content: center;">
-          <button onclick="exportUserData()" style="background: rgba(78,240,138,0.1);">
-            Export Data
-          </button>
-          <label for="import-data" style="background: rgba(102,176,255,0.1);" class="button">
-            Import Data
-          </label>
-          <input type="file" id="import-data" accept=".json" style="display: none;"
-            onchange="if(this.files[0])importUserData(this.files[0])">
-        </div>
-        <p style="color: var(--muted); font-size: 12px; margin-top: 10px;">
-          Your progress and scores are saved locally. Export to backup or transfer to another device.
-        </p>
-      </div>
-    </div>
-  `;
-  
-  app.querySelector('button').onclick = () => {
-    idx = 0;
+  backButton.style.display = 'none';
+  app.innerHTML=`<div class="welcome"><h2>Cyber Escape Room</h2><p>30 escalating cybersecurity puzzles. Some answers hide in source, others need decoding, scanning, or reasoning.</p><button>Start Lab</button></div>`;
+  app.querySelector("button").onclick=()=>{
+    idx=0;
     startTimer();
     renderQ();
   };
 }
+
 function renderQ(){
-backButton.style.display = 'flex'; // Show back button during questions
-const x=questions[idx];
-app.innerHTML=`<div class='story'>${x.story}</div>
-<div class='question'>${x.q}</div>
-<div class='controls'><input type='text' placeholder='Type answer here' autocomplete='off'><button>Submit</button></div>
-<div class='feedback'></div><div class='meta'>Challenge ${idx+1} of ${questions.length}</div>`;
-const i=app.querySelector("input"),b=app.querySelector("button"),f=app.querySelector(".feedback");
-b.onclick=()=>check();
-i.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();check();}};
-function check(){
-  console.log('Checking answer:', {
-    userInput: i.value.trim().toLowerCase(),
-    expectedAnswer: x.a ? x.a.toLowerCase() : null,
-    questionIndex: idx
-  });
-  
-  if(x.a && i.value.trim().toLowerCase() === x.a.toLowerCase()){
-    f.innerHTML=`
-      <div style="padding: 10px; background: rgba(78,240,138,0.1); border-radius: 8px; margin: 10px 0;">
-        <span class='ok'>✓ Excellent work!</span>
-        <div style="margin-top: 5px; font-size: 14px;">
-          Moving to the next challenge... Get ready!
+  backButton.style.display = 'flex';
+  const x=questions[idx];
+  app.innerHTML=`<div class='story'>${x.story}</div>
+  <div class='question'>${x.q}</div>
+  <div class='controls'><input type='text' placeholder='Type answer here' autocomplete='off'><button>Submit</button></div>
+  <div class='feedback'></div><div class='meta'>Challenge ${idx+1} of ${questions.length}</div>`;
+  const i=app.querySelector("input"),b=app.querySelector("button"),f=app.querySelector(".feedback");
+  b.onclick=()=>check();
+  i.onkeydown=e=>{if(e.key==="Enter"){e.preventDefault();check();}};
+
+  function check(){
+    if(i.value.trim().toLowerCase()===x.a.toLowerCase()){
+      f.innerHTML=`
+        <div style="padding: 10px; background: rgba(78,240,138,0.1); border-radius: 8px; margin: 10px 0;">
+          <span class='ok'>✓ Excellent work!</span>
+          <div style="margin-top: 5px; font-size: 14px;">
+            Moving to the next challenge... Get ready!
+          </div>
         </div>
-      </div>
-    `;
-    // Immediately move to next question after a short delay
-    setTimeout(() => {
-      idx++;
-      if(idx >= questions.length) {
-        done();
-      } else {
-        renderQ();
-      }
-    }, 1500);
-  } else {
-    f.innerHTML=`
-      <div style="padding: 10px; background: rgba(255,107,107,0.1); border-radius: 8px; margin: 10px 0;">
-        <span class='bad'>× Not quite right</span>
-        <div style="margin-top: 5px; font-size: 14px;">
-          Hint: Think about what the question is asking. Double-check your answer and try again!
+      `;
+      setTimeout(() => {
+        idx++;
+        if(idx >= questions.length) {
+          done();
+        } else {
+          renderQ();
+        }
+      }, 1500);
+    } else {
+      f.innerHTML=`
+        <div style="padding: 10px; background: rgba(255,107,107,0.1); border-radius: 8px; margin: 10px 0;">
+          <span class='bad'>× Not quite right</span>
+          <div style="margin-top: 5px; font-size: 14px;">
+            Hint: Think about what the question is asking. Double-check your answer and try again!
+          </div>
         </div>
-      </div>
-    `;
+      `;
+    }
   }
 }
-}
+
 function done(){
   const finalTime = timerElement.textContent;
   stopTimer();
-  backButton.style.display = 'none'; // Hide back button on completion
-  
-  // Calculate total seconds for sorting
-  const [hours, minutes, seconds] = finalTime.split(':').map(Number);
-  const totalSeconds = (hours * 3600) + (minutes * 60) + seconds;
-  
-  // Save the score
-  saveScore(totalSeconds, finalTime);
-  
-  // Get updated leaderboard
-  const leaderboard = getLeaderboard();
-  const playerRank = leaderboard.findIndex(score => score.name === playerName) + 1;
-  
+  backButton.style.display = 'none';
   app.innerHTML=`
     <div class='center'>
       <h2>✅ Lab Complete!</h2>
-      <p>Well done, ${playerName}! You solved all ${questions.length} challenges.</p>
-      <div style="margin: 20px 0;">
-        <h3 style="color: var(--accent);">Your Performance</h3>
-        <p>Time: ${finalTime}</p>
-        <p>Rank: #${playerRank} ${playerRank === 1 ? '🏆' : ''}</p>
-      </div>
-      
-      <div class="leaderboard">
-        <h3 style="color: var(--accent-2); margin-bottom: 15px;">🏆 Leaderboard</h3>
-        ${formatLeaderboard(leaderboard)}
-      </div>
-      
-      <button onclick='idx=-1;timerElement.style.display="none";renderWelcome()' style="margin-top: 20px;">Try Again</button>
+      <p>Congratulations! You solved all ${questions.length} challenges.</p>
+      <p style="color: var(--accent); margin: 20px 0;">Your completion time: ${finalTime}</p>
+      <button onclick='idx=-1;timerElement.style.display="none";renderWelcome()'>Try Again</button>
     </div>
-  `;}
-// Start by loading answers from an external file
-loadAnswersAndStart();
+  `;
+}
+
+renderWelcome();
 })();
 </script>
 </body>
